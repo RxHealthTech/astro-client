@@ -1,0 +1,29 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import Features2 from '~/components/widgets/Features2.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+
+const metadata = {
+  title: 'Startup Landing Page',
+};
+
+import {getSession} from 'auth-astro/server';
+
+let session = await getSession(Astro.request)
+if (!session) return Astro.redirect("/");
+
+// const response = await fetch('http://127.0.0.1:8000/list');
+// const data = await response.json();
+---
+
+<Layout metadata={metadata}>
+  <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <!--Here is my Report page which receives <b>{data.message}</b> from API-->
+  </div>
+</Layout>

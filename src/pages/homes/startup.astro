@@ -1,0 +1,194 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import Features2 from '~/components/widgets/Features2.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+
+const metadata = {
+  title: 'Startup Landing Page',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    tagline="Startup Health Demo"
+    actions={[
+      {
+        variant: 'primary',
+        target: '_blank',
+        text: 'Get templates',
+        href: 'https://github.com/onwidget/astrowind',
+        icon: 'tabler:download',
+      },
+      { text: 'Learn more', href: '#features' },
+    ]}
+  >
+    <Fragment slot="title">
+      Improve <span class="hidden sm:inline">Health Analysis </span>  <span
+      class="text-accent dark:text-white highlight">Today</span
+    > with HealthTech
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Step into the spotlight with <span class="font-semibold">Astrowind</span> templates, your pathway to fortifying
+      your startup's digital footprint, fostering credibility, and expanding your reach.
+    </Fragment>
+
+  </Hero>
+
+  <!-- Features2 Widget ************** -->
+
+  <Features2
+    title="About us"
+    subtitle="We believe in the magic of turning dreams into stunning realities. Founded by passionate developers with a shared vision, we set out to simplify the website creation process. Our templates bring together the innovation of Astro 4.0 and the versatility of Tailwind CSS, enabling you to express your unique brand identity like never before."
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Features2>
+
+  <!-- Stats Widget ****************** -->
+
+  <Stats
+    title="Discover the impressive impact of HealthTech"
+    subtitle="The numbers below reflect the trust our users have placed in us and the remarkable outcomes we've helped them achieve."
+    stats={[
+      { title: 'Downloads', amount: '182K' },
+      { title: 'User Ratings', amount: '4.8' },
+    ]}
+  />
+
+  <!-- Features2 Widget ************** -->
+
+  <Features2
+    title="What services do we provide?"
+    subtitle="We offer a wide range of services in the Health Space"
+    columns={2}
+    items={[
+      {
+        title: 'Integrated Analysis',
+        description:
+          'Offer clear instructions on how to download the purchased templates and install them on various website platforms or content management systems.',
+        icon: 'flat-color-icons:document',
+      },
+      {
+        title: 'Custom Reporting',
+        description:
+          'Provide interactive demos and previews that allow customers to see how their chosen template will look and function before making a purchase.',
+        icon: 'flat-color-icons:template',
+      }
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Features2>
+
+  <!-- FAQs Widget ******************* -->
+
+  <FAQs
+    title="Frequently Asked Questions"
+    items={[
+      {
+        title: 'What are landing page templates?',
+        description:
+          'Landing page templates are pre-designed web page layouts that are specifically created to serve as a foundation for building effective landing pages. These templates are designed to capture the attention of visitors and guide them towards a specific action or goal, such as signing up for a newsletter, making a purchase, or downloading a resource.',
+      },
+      {
+        title: 'Why should I use a template?',
+        description:
+          'Some of the advantages are that they provide a ready-to-use structure,  saving you significant time. Are designed with user-friendliness in mind and provide a cost-effective alternative, saving you money while still delivering a quality result.',
+      },
+      {
+        title: 'Can I preview templates before buying?',
+        description:
+          'Yes, the templates allow you to preview them before making a purchase. There is a "Demo" button associated with each template.',
+      },
+      {
+        title: 'Do I need technical skills to use a template?',
+        description:
+          'Advanced technical skills are not required to use a template, but having a basic understanding of web navigation and familiarity with using online tools can still be beneficial. If you have more specific customization needs, you might need to consult guides or reach out to customer support for assistance.',
+      }
+    ]}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </FAQs>
+
+  <!-- Features3 Widget ************** -->
+
+  <Features3
+    title="Let us know how we can help"
+    subtitle="We’re here to help and answer any question you might have."
+    columns={4}
+    items={[
+      {
+        title: 'Phone',
+        icon: 'tabler:phone',
+        callToAction: {
+          target: '_blank',
+          text: 'Call us',
+          href: '/',
+          variant: 'link',
+        },
+      },
+      {
+        title: 'Email',
+        icon: 'tabler:mail',
+        callToAction: {
+          target: '_blank',
+          text: 'Write to us',
+          href: '/',
+          variant: 'link',
+        },
+      },
+      {
+        title: 'Chat with sales',
+        icon: 'tabler:message-circle',
+        callToAction: {
+          target: '_blank',
+          text: 'Start chatting',
+          href: '/',
+          variant: 'link',
+        },
+      },
+      {
+        title: 'Chat with support',
+        icon: 'tabler:message-circle',
+        callToAction: {
+          target: '_blank',
+          text: 'Start chatting',
+          href: '/',
+          variant: 'link',
+        },
+      },
+    ]}
+  />
+
+  <!-- CallToAction Widget *********** -->
+
+  <CallToAction
+    actions={[{
+      variant: "primary",
+      target: '_blank',
+      text: 'Schedule a Demo',
+      href: 'https://github.com/onwidget/astrowind',
+      icon: 'tabler:download',
+    }]}
+  >
+    <Fragment slot="title">Be a part of our vision</Fragment>
+
+    <Fragment slot="subtitle">
+      Discover a dynamic work environment, unparalleled growth opportunities, and the chance to make a meaningful
+      impact.
+    </Fragment>
+  </CallToAction>
+</Layout>
