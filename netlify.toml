@@ -3,6 +3,10 @@
   command = "npm run build"
 [build.processing.html]
   pretty_urls = false
+[functions]
+  directory = "funcs"
+  # Include all files in all functions
+  included_files = ["src/**"]
 [[headers]]
   for = "/assets/*"
   [headers.values]

@@ -69,16 +69,102 @@ export interface AnalyticsConfig {
   };
 }
 
-const config = yaml.load(fs.readFileSync('src/config.yaml', 'utf8')) as {
-  site?: SiteConfig;
-  metadata?: MetaDataConfig;
-  i18n?: I18NConfig;
-  apps?: {
-    blog?: AppBlogConfig;
-  };
-  ui?: unknown;
-  analytics?: unknown;
-};
+const config = {
+  site: {
+    name: 'Website',
+    site: 'https://astrowind.vercel.app',
+    base: '/',
+    trailingSlash: false,
+    googleSiteVerificationId: '',
+  },
+  i18n:{
+    language: 'en',
+    textDirection: 'ltr',
+  },
+  ui: {
+    theme: 'system',
+    classes: {},
+    tokens: {},
+  },
+  analytics:{
+    vendors: {
+      googleAnalytics: {
+        id: undefined,
+      },
+    },
+  },
+  metadata:<MetaDataConfig>{
+    title: {
+      default: 'Website',
+      template: '%s',
+    },
+    description: '',
+    robots: {
+      index: false,
+      follow: false,
+    },
+    openGraph: {
+      siteName: 'AstroWind',
+      images: [
+        {
+          url: '~/assets/images/default.png',
+          width: 1200,
+          height: 628,
+        },
+      ]
+    },
+  },
+  apps:{
+    blog: {
+      isEnabled: true,
+      postsPerPage: 6,
+      isRelatedPostsEnabled: true,
+      relatedPostsCount: 4,
+      post: {
+        isEnabled: true,
+        permalink: '/blog/%slug%',
+        robots: {
+          index: true,
+          follow: true,
+        },
+      },
+      list: {
+        isEnabled: true,
+        pathname: 'blog',
+        robots: {
+          index: true,
+          follow: true,
+        },
+      },
+      category: {
+        isEnabled: true,
+        pathname: 'category',
+        robots: {
+          index: true,
+          follow: true,
+        },
+      },
+      tag: {
+        isEnabled: true,
+        pathname: 'tag',
+        robots: {
+          index: false,
+          follow: true,
+        },
+      },
+    },
+  },
+}
+// const config = yaml.load(fs.readFileSync('src/config.yaml', 'utf8')) as {
+//   site?: SiteConfig;
+//   metadata?: MetaDataConfig;
+//   i18n?: I18NConfig;
+//   apps?: {
+//     blog?: AppBlogConfig;
+//   };
+//   ui?: unknown;
+//   analytics?: unknown;
+// };
 
 const DEFAULT_SITE_NAME = 'Website';
 
