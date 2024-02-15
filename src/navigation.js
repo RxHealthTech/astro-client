@@ -6,39 +6,6 @@ export const headerData = {
       text: 'Home',
       href: '/',
     },
-    // {
-    //   text: 'Pages',
-    //   links: [
-    //     {
-    //       text: 'Features (Anchor Link)',
-    //       href: getPermalink('/#features'),
-    //     },
-    //     {
-    //       text: 'Services',
-    //       href: getPermalink('/services'),
-    //     },
-    //     {
-    //       text: 'Pricing',
-    //       href: getPermalink('/pricing'),
-    //     },
-    //     {
-    //       text: 'About us',
-    //       href: getPermalink('/about'),
-    //     },
-    //     {
-    //       text: 'Contact',
-    //       href: getPermalink('/contact'),
-    //     },
-    //     {
-    //       text: 'Terms',
-    //       href: getPermalink('/terms'),
-    //     },
-    //     {
-    //       text: 'Privacy policy',
-    //       href: getPermalink('/privacy'),
-    //     },
-    //   ],
-    // },
     {
       text: 'Blog',
       links: [
@@ -74,6 +41,10 @@ export const headerData = {
         {
           text: 'Reports',
           href: getPermalink('admin/reports', 'post'),
+       },
+        {
+          text: 'Categories',
+          href: getPermalink('admin/categories'),
         }
       ],
     },
