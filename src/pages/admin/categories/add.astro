@@ -1,0 +1,89 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Button from "../../../components/ui/Button.astro";
+import { getSession } from 'auth-astro/server';
+
+const session = await getSession(Astro.request)
+
+if(Astro.request.method == "POST") {
+  const data = await Astro.request.formData();
+  const name = data.get('name');
+  const description = data.get('textarea');
+  const category = {
+    category: name,
+    description: description,
+    user: session?.user.name
+  }
+  const api = import.meta.env.API_PATH;
+  const response = await fetch(`${api}/category`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(category)
+  });
+  if(response.ok) {
+    return Astro.redirect('/admin/categories');
+  }
+}
+
+const metadata = {
+  title: 'Startup Landing Page',
+};
+---
+
+<Layout metadata={metadata}>
+
+  <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default max-w-7xl mx-auto">
+
+    <div class="mb-8 md:mx-auto md:mb-12 text-center max-w-3xl"
+         data-astro-source-loc="23:6">
+      <div class="m-2 flex">
+        <Button variant="secondary" href="/admin/categories" >Back</Button>
+      </div>
+      <h2
+        class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl"
+        data-astro-source-loc="31:10">
+        New Category
+      </h2>
+      <p class="mt-4 text-muted text-xl"
+         data-astro-source-loc="41:10">
+        Introducing a new category could help you organize your files into logical groups.
+        You could associate files to new categories and make it easier to find them later.
+        
+      </p></div>
+    <div
+      class="flex flex-col max-w-xl mx-auto rounded-lg backdrop-blur border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 shadow p-4 sm:p-6 lg:p-8 w-full"
+      data-astro-source-loc="29:179">
+      <form method="post" 
+            data-astro-source-loc="8:7">
+        <div class="mb-6"
+             data-astro-source-loc="14:31">
+          <label for="name" class="block text-sm font-medium"
+                 data-astro-source-loc="16:69">
+            Name </label>
+          <input type="text"
+                 name="name"
+                 class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+                 id="name"
+                 autocomplete="off"
+                 placeholder=""
+                 data-astro-source-loc="20:16">
+        </div>
+        <div
+          data-astro-source-loc="35:12">
+          <label for="textarea" class="block text-sm font-medium"
+                 data-astro-source-loc="36:65"> Description </label> <textarea
+          id="textarea" name="textarea" rows="4"
+          class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+          data-astro-source-loc="39:10"></textarea></div>
+        <div class="mt-10 grid"
+             data-astro-source-loc="72:31">
+          <Button variant="primary" type="submit" id="add" icon="tabler:plus" >Add</Button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</Layout>

@@ -8,92 +8,86 @@ import Features2 from '~/components/widgets/Features2.astro';
 import Stats from '~/components/widgets/Stats.astro';
 import Features3 from '~/components/widgets/Features3.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
+import Button from "../../../components/ui/Button.astro";
+
+//get list of categories
+const api = import.meta.env.API_PATH;
+const categories = await fetch(`${api}/category`);
+const data = await categories.json();
+console.log(data);
 
 const metadata = {
   title: 'Startup Landing Page',
 };
-
 ---
 
 <Layout metadata={metadata}>
   <!-- Hero Widget ******************* -->
-  
- 
-  
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-            Lab Report Categories
-            <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Specify a category for the report (ie Nutrition, Pharmacogenomics).</p>
-        </caption>
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+
+  <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default max-w-7xl mx-auto">
+
+    <h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">Category
+      Manager</h2>
+    <div class="flex justify-end">
+      <Button icon="tabler:plus" variant="primary" link="/add" class="mt-4" href="categories/add">Add Category</Button>
+    </div>
+
+    <div class="container mx-auto overflow-x-auto">
+
+      <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <caption
+              class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+              Categories
+              <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
+                Introduce categories for the organization of lab reports files.
+              </p>
+            </caption>
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    Category
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    User
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Description
-                </th>
-                <!--<th scope="col" class="px-6 py-3">-->
-                <!--    <span class="sr-only">Edit</span>-->
-                <!--</th>-->
+              <th scope="col" class="px-6 py-3">
+                Category
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Description
+              </th>
+              <th scope="col" class="px-6 py-3">
+                User
+              </th>
+              <th scope="col" class="px-6 py-3">
+                <span class="sr-only">Edit</span>
+              </th>
             </tr>
-        </thead>
-        <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Nutrition
-                </th>
-                <td class="px-6 py-4">
-                    Silver
-                </td>
-                <td class="px-6 py-4">
-                    Laptop
-                </td>
-                
-                <td class="px-6 py-4 text-right">
+            </thead>
+            <tbody>
+            {data.map(category => (
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {category.category}
+                  </th>
+                  <td class="px-6 py-4">
+                    {category.description}
+                  </td>
+                  <td class="px-6 py-4">
+                    {category.user}
+                  </td>
+
+                  <td class="px-6 py-4 text-right">
                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Cannabis
-                </th>
-                <td class="px-6 py-4">
-                    steph
-                </td>
-                <td class="px-6 py-4">
-                    Laptop PC
-                </td>
-               
-                <td class="px-6 py-4 text-right">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr class="bg-white dark:bg-gray-800">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Pharmacogenomics
-                </th>
-                <td class="px-6 py-4">
-                    Black
-                </td>
-                <td class="px-6 py-4">
-                    Accessories
-                </td>
-                
-                <td class="px-6 py-4 text-right">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-</div>
+                  </td>
+                </tr>
+              )
+            )}
+            
+            </tbody>
+          </table>
+        </div>
+      </div>
 
 
- 
+    </div>
+  </div>
+
+
 </Layout>
