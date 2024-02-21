@@ -8,7 +8,7 @@ import Features2 from '~/components/widgets/Features2.astro';
 import Stats from '~/components/widgets/Stats.astro';
 import Features3 from '~/components/widgets/Features3.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
-import Button from "../../../components/ui/Button.astro";
+import Button from "~/components/ui/Button.astro";
 
 //get list of categories
 const api = import.meta.env.API_PATH;
@@ -74,7 +74,7 @@ const metadata = {
                   </td>
 
                   <td class="px-6 py-4 text-right">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <a href="#" class="font-medium text-red-600 ">Remove</a>
                   </td>
                 </tr>
               )
