@@ -1,20 +1,12 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-
-import Hero from '~/components/widgets/Hero.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
-
-import Features2 from '~/components/widgets/Features2.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import Features3 from '~/components/widgets/Features3.astro';
-import FAQs from '~/components/widgets/FAQs.astro';
+import MiddleDisplayLayout from '~/layouts/MiddleDisplayLayout.astro';
 import Button from "~/components/ui/Button.astro";
 
 //get list of categories
 const api = import.meta.env.API_PATH;
 const categories = await fetch(`${api}/category`);
 const data = await categories.json();
-console.log(data);
 
 const metadata = {
   title: 'Startup Landing Page',
@@ -22,9 +14,8 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Widget ******************* -->
-
-  <div class="relative px-4 md:px-6 py-12 md:py-16 lg:py-20 text-default max-w-7xl mx-auto">
+  
+  <MiddleDisplayLayout>
 
     <h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">Category
       Manager</h2>
@@ -74,7 +65,7 @@ const metadata = {
                   </td>
 
                   <td class="px-6 py-4 text-right">
-                    <a href="#" class="font-medium text-red-600 ">Remove</a>
+                    <Button type="button" id="remove" data-id={category.id}  variant="danger" class="mt-4 text-red-600 remove" href="#">Remove</Button>
                   </td>
                 </tr>
               )
@@ -87,7 +78,24 @@ const metadata = {
 
 
     </div>
-  </div>
-
+    
+  </MiddleDisplayLayout>
 
 </Layout>
+<script define:vars={{api}} is:inline>
+  
+  const removeBtns = document.querySelectorAll('.remove');
+  removeBtns.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      const id = e.target.getAttribute('data-id');
+      console.log(id);
+      const data = fetch(`/admin/api/category/${id}`, {
+        method: 'DELETE',
+      }). then(() => {
+        window.location.reload();
+      });
+    });
+  });
+  
+</script>
