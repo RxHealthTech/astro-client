@@ -36,7 +36,7 @@ export const headerData = {
       links: [
         {
           text: 'File Manager',
-          href: getPermalink('admin/file-manager' ),
+          href: getPermalink('admin/files' ),
         },
         {
           text: 'Reports',
