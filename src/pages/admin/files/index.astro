@@ -1,0 +1,20 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import MiddleDisplayLayout from '~/layouts/MiddleDisplayLayout.astro';
+import Button from "../../../components/ui/Button.astro";
+const metadata = {
+  title: 'Introduce Resource File',
+};
+---
+<Layout metadata={metadata}>
+<MiddleDisplayLayout>
+
+  <h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">File Manager</h2>
+  <div class="flex justify-end">
+    <Button icon="tabler:plus" variant="primary" link="/add" class="mt-4" href="files/add">Add File</Button>
+  </div>
+  
+    <p>Resource files are a way to store data in a structured way. They are used to store data that is not code, but is used by the code. This can be anything from configuration data to translations to images. Resource files are a way to store data in a structured way. They are used to store data that is not code, but is used by the code. This can be anything from configuration data to translations to images.</p>
+    <p>Resource files are a way to store data in a structured way. They are used to store data that is not code, but is used by the code. This can be anything from configuration data to translations to images. Resource files are a way to store data in a structured way. They are used to store data that is not code, but is used by the code. This can be anything from configuration data to translations to images.</p>
+  </MiddleDisplayLayout>
+</Layout>
