@@ -5,6 +5,13 @@ export const POST: APIRoute = async ({ request }) => {
   const api = import.meta.env.API_PATH;
   const data = await request.formData();
   const name = data.get("name");
+ 
+  const method = `${api}/upload`;
+  const response = await fetch(method, {
+    method: "POST",
+    body: data,
+  });
+  
   // const email = data.get("email");
   // const message = data.get("message");
   // // Validate the data - you'll probably want to do more than this

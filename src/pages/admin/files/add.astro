@@ -99,11 +99,13 @@ window.submitFile = async (event) => {
   event.preventDefault();
   console.log('submitting file')
   console.log(event);
+
   const form = event.target;
-  const element = document.getElementById('file-add-form');
-  console.log(element);
-  const formData = new FormData(element);
-  console.log(formData);
+  const formData = new FormData(form);
+  const updata = await fetch('/admin/api/file/add', {
+    method: 'POST',
+    body: formData
+  });
   // const form = event.target;
   // const formData = new FormData(form);
   // const api = import.meta.env.API_PATH;
