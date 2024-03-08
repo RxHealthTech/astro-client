@@ -2,11 +2,14 @@
 import Layout from '~/layouts/PageLayout.astro';
 import MiddleDisplayLayout from '~/layouts/MiddleDisplayLayout.astro';
 import Button from "../../../components/ui/Button.astro";
-
+import { getSession } from 'auth-astro/server';
 //get list of categories
 const api = import.meta.env.API_PATH;
 const categories = await fetch(`${api}/category`);
 const data = await categories.json();
+
+
+const session = await getSession(Astro.request)
 
 const metadata = {
   title: 'Introduce Resource File',
@@ -68,7 +71,7 @@ const metadata = {
                data-astro-source-loc="35:12">
             <label for="textarea" class="block text-sm font-medium"
                    data-astro-source-loc="36:65"> Description </label> <textarea
-            id="textarea" name="textarea" rows="4" required
+            id="textarea" name="description" rows="4" required
             class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
             data-astro-source-loc="39:10"></textarea>
           </div>
@@ -83,6 +86,9 @@ const metadata = {
                    accept=".json, .csv"
                    required>
           </div>
+          <div class="hidden">
+           <input name="user" type="hidden" value={session.user.name}/> 
+          </div>
           <div class="mt-10 grid"
                data-astro-source-loc="72:31">
             <Button variant="primary" type="submit" id="add" icon="tabler:plus" >Add</Button>
@@ -94,7 +100,8 @@ const metadata = {
 
   </MiddleDisplayLayout>
 </Layout>
-<script>
+<script define:vars={{session}} >
+  console.log(session)
 window.submitFile = async (event) => {
   event.preventDefault();
   console.log('submitting file')
