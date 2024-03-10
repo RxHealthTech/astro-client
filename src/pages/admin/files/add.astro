@@ -2,7 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import MiddleDisplayLayout from '~/layouts/MiddleDisplayLayout.astro';
 import Button from "../../../components/ui/Button.astro";
-import { getSession } from 'auth-astro/server';
+import {getSession} from 'auth-astro/server';
 //get list of categories
 const api = import.meta.env.API_PATH;
 const categories = await fetch(`${api}/category`);
@@ -17,13 +17,13 @@ const metadata = {
 ---
 <Layout metadata={metadata}>
   <MiddleDisplayLayout>
-    
+
     <div class="relative px-4 md:px-6 py-12  text-default max-w-7xl mx-auto">
 
       <div class="mb-8 md:mx-auto md:mb-12 text-center max-w-3xl"
            data-astro-source-loc="23:6">
         <div class="m-2 flex">
-          <Button variant="secondary" href="/admin/files" >Back</Button>
+          <Button variant="secondary" href="/admin/files">Back</Button>
         </div>
         <h2
           class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl"
@@ -87,11 +87,11 @@ const metadata = {
                    required>
           </div>
           <div class="hidden">
-           <input name="user" type="hidden" value={session.user.name}/> 
+            <input name="user" type="hidden" value={session.user.name}/>
           </div>
           <div class="mt-10 grid"
                data-astro-source-loc="72:31">
-            <Button variant="primary" type="submit" id="add" icon="tabler:plus" >Add</Button>
+            <Button variant="primary" type="submit" id="add" icon="tabler:plus">Add</Button>
           </div>
 
         </form>
@@ -100,33 +100,25 @@ const metadata = {
 
   </MiddleDisplayLayout>
 </Layout>
-<script define:vars={{session}} >
-  console.log(session)
-window.submitFile = async (event) => {
-  event.preventDefault();
-  console.log('submitting file')
-  console.log(event);
+<script define:vars={{session}}>
+  // console.log(session)
+  window.submitFile = async (event) => {
+    event.preventDefault();
 
-  const form = event.target;
-  const formData = new FormData(form);
-  const updata = await fetch('/admin/api/file/add', {
-    method: 'POST',
-    body: formData
-  });
-  // const form = event.target;
-  // const formData = new FormData(form);
-  // const api = import.meta.env.API_PATH;
-  // const response = await fetch(`${api}/file`, {
-  //   method: 'POST',
-  //   body: formData
-  // });
-  // if (response.ok) {
-  //   window.location.href = '/admin/files';
-  // } else {
-  //   alert('Error adding file');
-  // }
-}  
+    const form = event.target;
+    const formData = new FormData(form);
+    const updata = await fetch('/admin/api/file/add', {
+      method: 'POST',
+      body: formData
+    });
 
-// post form data to the server
+    if (updata.status === 200) {
+      window.location.href = '/admin/files';
+      console.log('File added');
+    } else {
+      // add error message
+    }
+  }
+
 
 </script>
