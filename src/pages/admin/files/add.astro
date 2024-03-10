@@ -107,12 +107,12 @@ const metadata = {
 
     const form = event.target;
     const formData = new FormData(form);
-    const updata = await fetch('/admin/api/file/add', {
+    const update = await fetch('/admin/api/file/add', {
       method: 'POST',
       body: formData
     });
 
-    if (updata.status === 200) {
+    if (update.status === 200) {
       window.location.href = '/admin/files';
       console.log('File added');
     } else {
