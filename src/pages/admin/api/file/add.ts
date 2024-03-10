@@ -1,26 +1,23 @@
-import type { APIRoute } from "astro";
+import type {APIRoute} from "astro";
+import {ApiActionResponseType} from "~/models";
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({request}) => {
+
+  const apiResponse: ApiActionResponseType = {success: true};
 
   const api = import.meta.env.API_PATH;
   const data = await request.formData();
-  const name = data.get("name");
-  // const email = data.get("email");
-  // const message = data.get("message");
-  // // Validate the data - you'll probably want to do more than this
-  // if (!name || !email || !message) {
-  //   return new Response(
-  //     JSON.stringify({
-  //       message: "Missing required fields",
-  //     }),
-  //     { status: 400 }
-  //   );
-  // }
-  // Do something with the data, then return a success response
-  return new Response(
-    JSON.stringify({
-      message: "Success!"
-    }),
-    { status: 200 }
-  );
+ 
+  const method = `${api}/upload`;
+  const response = await fetch(method, {
+    method: "POST",
+    body: data,
+  });
+
+  if (response.ok) {
+    return new Response(JSON.stringify(apiResponse), {status: 200});
+  }
+
+  apiResponse.success = false;
+  return new Response(JSON.stringify(apiResponse), {status: 200});
 };
