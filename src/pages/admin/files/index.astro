@@ -2,12 +2,13 @@
 import Layout from '~/layouts/PageLayout.astro';
 import MiddleDisplayLayout from '~/layouts/MiddleDisplayLayout.astro';
 import Button from "../../../components/ui/Button.astro";
+import PageLayout from "../../../layouts/PageLayout.astro";
 // get list of files
 
 const api = import.meta.env.API_PATH;
 const categories = await fetch(`${api}/upload`);
 const data = await categories.json();
-
+console.log(data)
 const metadata = {
   title: 'Introduce Resource File',
 };
@@ -20,8 +21,7 @@ const metadata = {
     <Button icon="tabler:plus" variant="primary" link="/add" class="mt-4" href="files/add">Add File</Button>
   </div>
   
-    <p>Resource files are a way to store data in a structured way. They are used to store data that is not code, but is used by the code. This can be anything from configuration data to translations to images. Resource files are a way to store data in a structured way. They are used to store data that is not code, but is used by the code. This can be anything from configuration data to translations to images.</p>
-    <p>Resource files are a way to store data in a structured way. They are used to store data that is not code, but is used by the code. This can be anything from configuration data to translations to images. Resource files are a way to store data in a structured way. They are used to store data that is not code, but is used by the code. This can be anything from configuration data to translations to images.</p>
+  <p>Introduce Files to be used in the report generation process</p>
   <div class="container mx-auto overflow-x-auto">
 
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -29,9 +29,8 @@ const metadata = {
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <caption
             class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-            Categories
+            Files
             <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-              Introduce categories for the organization of lab reports files.
             </p>
           </caption>
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -41,6 +40,9 @@ const metadata = {
             </th>
             <th scope="col" class="px-6 py-3">
               Category
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Original File Name
             </th>
             <th scope="col" class="px-6 py-3">
               Description
@@ -61,6 +63,9 @@ const metadata = {
                 </th>
                 <td class="px-6 py-4">
                   {category.category}
+                </td>
+                <td class="px-6 py-4">
+                  {category.original_file_name}
                 </td>
                 <td class="px-6 py-4">
                   {category.description}
