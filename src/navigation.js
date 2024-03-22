@@ -35,17 +35,17 @@ export const headerData = {
       text: 'Admin',
       links: [
         {
-          text: 'File Manager',
-          href: getPermalink('admin/files' ),
-        },
-        {
           text: 'Reports',
           href: getPermalink('admin/reports', 'post'),
        },
         {
           text: 'Categories',
           href: getPermalink('admin/categories'),
-        }
+        },
+        {
+          text: 'Manage Files',
+          href: getPermalink('admin/files' ),
+        },
       ],
     },
     {
