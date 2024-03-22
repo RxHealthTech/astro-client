@@ -1,0 +1,9 @@
+---
+import {getSession} from 'auth-astro/server';
+let session = await getSession(Astro.request) ?? {};
+---
+<script define:vars={{session}}>
+  if (!session?.user){
+    window.location.href = '/';
+  }
+</script>

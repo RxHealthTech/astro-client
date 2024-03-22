@@ -2,7 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import MiddleDisplayLayout from '~/layouts/MiddleDisplayLayout.astro';
 import Button from "../../../components/ui/Button.astro";
-import PageLayout from "../../../layouts/PageLayout.astro";
+import Authorize from "../../../components/Authorize.astro";
 // get list of files
 
 const api = import.meta.env.API_PATH;
@@ -14,6 +14,7 @@ const metadata = {
 ---
 <Layout metadata={metadata}>
 <MiddleDisplayLayout>
+  <Authorize />
 
   <h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">File Manager</h2>
   <div class="flex justify-end">
