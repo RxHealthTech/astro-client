@@ -91,3 +91,21 @@ const metadata = {
   
   </MiddleDisplayLayout>
 </Layout>
+<script define:vars={{api}} is:inline>
+  const removeBtns = document.querySelectorAll('.remove');
+  removeBtns.forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const id = e.target.getAttribute('data-id');
+      const response = await fetch(`/admin/api/file/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.ok) {
+        window.location.reload();
+      }
+    });
+  }); 
+</script>
