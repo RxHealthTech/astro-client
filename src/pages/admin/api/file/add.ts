@@ -1,5 +1,6 @@
-import type {APIRoute} from "astro";
+// @ts-ignore
 import {ApiActionResponseType} from "~/models";
+import type {APIRoute} from "astro";
 
 export const POST: APIRoute = async ({request}) => {
 

@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/PageLayout.astro';
+import {Icon} from "astro-icon/components";
 
 import Hero from '../../../components/widgets/Hero.astro';
 import CallToAction from '../../../components/widgets/CallToAction.astro';
@@ -14,6 +15,9 @@ const metadata = {
 };
 
 import {getSession} from 'auth-astro/server';
+import MiddleDisplayLayout from "../../../layouts/MiddleDisplayLayout.astro";
+import Favicons from "../../../components/Favicons.astro";
+import Button from "../../../components/ui/Button.astro";
 
 let session = await getSession(Astro.request)
 if (!session) return Astro.redirect("/");
@@ -21,7 +25,13 @@ if (!session) return Astro.redirect("/");
 ---
 
 <Layout metadata={metadata}>
-  <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-    <!--Here is my Report page which receives <b>{data.message}</b> from API-->
-  </div>
+  <MiddleDisplayLayout>
+
+    <h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">Manage Reports</h2>
+    <div class="flex justify-end">
+      <Button icon="tabler:plus" variant="primary" link="/add" class="mt-4" href="reports/selector">Add Report</Button>
+    </div>
+
+    
+  </MiddleDisplayLayout>
 </Layout>
