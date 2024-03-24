@@ -2,22 +2,14 @@
 import Layout from '../../../layouts/PageLayout.astro';
 import {Icon} from "astro-icon/components";
 
-import Hero from '../../../components/widgets/Hero.astro';
-import CallToAction from '../../../components/widgets/CallToAction.astro';
-
-import Features2 from '../../../components/widgets/Features2.astro';
-import Stats from '../../../components/widgets/Stats.astro';
-import Features3 from '../../../components/widgets/Features3.astro';
-import FAQs from '../../../components/widgets/FAQs.astro';
-
 const metadata = {
-  title: 'Startup Landing Page',
+  title: 'Report Selection',
 };
 
 import {getSession} from 'auth-astro/server';
 import MiddleDisplayLayout from "../../../layouts/MiddleDisplayLayout.astro";
 import Favicons from "../../../components/Favicons.astro";
-import Button from "../../../components/ui/Button.astro";
+import {navigate} from "astro/dist/transitions/router";
 
 let session = await getSession(Astro.request)
 if (!session) return Astro.redirect("/");
@@ -27,11 +19,31 @@ if (!session) return Astro.redirect("/");
 <Layout metadata={metadata}>
   <MiddleDisplayLayout>
 
-    <h2 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">Manage Reports</h2>
-    <div class="flex justify-end">
-      <Button icon="tabler:plus" variant="primary" link="/add" class="mt-4" href="reports/selector">Add Report</Button>
+    <div class="flex align-middle justify-center flex-col">
+      <div class="w-100">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Report Selection</h1>
+        <p class="mt-4 text-gray-600 dark:text-gray-400">Select among report types</p>
+      </div>
+      <div class="w-100 m-20">
+        <div class="w-100 text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+          <button onclick="navigate('nutrition')" type="button"  class="relative inline-flex items-center w-full px-4 py-3 text-lg font-medium border-b border-gray-200 rounded-t-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+            <Icon name="tabler:salad" class="w-6 h-6 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline text-primary m-3"/>
+            Nutrition
+          </button>
+          <button type="button" onclick="navigate('pharmacogenomics')" class="relative inline-flex items-center w-full px-4 py-3 text-lg font-medium border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+            <Icon name="tabler:prescription" class="w-6 h-6 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline text-primary m-3"/>
+            Pharmacogenomics
+          </button>
+        </div>
+      </div>
     </div>
 
-    
+
   </MiddleDisplayLayout>
 </Layout>
+<script is:inline>
+  function navigate(path) {
+    window.location.href = '/admin/reports/add/' + path;
+  }
+
+</script>
