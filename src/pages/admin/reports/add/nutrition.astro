@@ -1,0 +1,132 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import MiddleDisplayLayout from '~/layouts/MiddleDisplayLayout.astro';
+import {getSession} from "auth-astro/server";
+import Button from "~/components/ui/Button.astro";
+//get list of files
+
+const session = await getSession(Astro.request)
+if (!session) return Astro.redirect("/");
+
+const api = import.meta.env.API_PATH;
+const files = await fetch(api + '/upload');
+const data = await files.json();
+// filter by nutrition category
+const nutritionFiles = data.filter((file) => file.category === 'Nutrition');
+
+const metadata = {
+  title: 'Introduce Nutrition Report',
+};
+---
+<Layout metadata={metadata}>
+  <MiddleDisplayLayout>
+    <div class="relative px-4 md:px-6 py-12  text-default max-w-7xl mx-auto">
+
+      <div class="mb-8 md:mx-auto md:mb-12 text-center max-w-3xl"
+           data-astro-source-loc="23:6">
+        <div class="m-2 flex">
+          <Button variant="secondary" href="/admin/reports/list/nutrition">List</Button>
+        </div>
+        <h2
+          class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl"
+          data-astro-source-loc="31:10">
+          Nutrition Report
+        </h2>
+        <p class="mt-4 text-muted text-xl"
+           data-astro-source-loc="41:10">
+          Introduce a new nutrition report
+        </p></div>
+      <div
+        class="flex flex-col max-w-xl mx-auto rounded-lg backdrop-blur border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 shadow p-4 sm:p-6 lg:p-8 w-full"
+        data-astro-source-loc="29:179">
+        <form method="post" id="file-add-form" onsubmit="submitReport(event)"
+              data-astro-source-loc="8:7">
+          <div class="mb-6"
+               data-astro-source-loc="14:31">
+            <label for="name" class="block text-sm font-medium"
+                   data-astro-source-loc="16:69">
+              Name </label>
+            <input type="text"
+                   name="name"
+                   class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+                   id="name"
+                   autocomplete="off"
+                   required
+                   placeholder=""
+                   data-astro-source-loc="20:16">
+          </div>
+          <div class="mb-6">
+            <label for="machineParam" class="block text-sm font-medium">
+              Machine Data
+            </label>
+            <select name="machineParam"
+                    class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+                    id="machineParam"
+                    required>
+              <option value="" disabled selected>Select Machine Data</option>
+              {nutritionFiles.map(item => (
+                <option value={item.id}>{item.name}</option>
+              ))}
+            </select>
+          </div>
+
+          <div class="mb-6">
+            <label for="demographicParam" class="block text-sm font-medium">
+              Demographic
+            </label>
+            <select name="demographicParam"
+                    class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+                    id="demographicParam"
+                    required>
+              <option value="" disabled selected>Select Demographic</option>
+              {nutritionFiles.map(item => (
+                <option value={item.id}>{item.name}</option>
+              ))}
+            </select>
+          </div>
+          <div class="mb-6"
+               data-astro-source-loc="35:12">
+            <label for="textarea" class="block text-sm font-medium"
+                   data-astro-source-loc="36:65"> Description </label> <textarea
+            id="textarea" name="description" rows="4" required
+            class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+            data-astro-source-loc="39:10"></textarea>
+          </div>
+          <div class="hidden">
+            <input name="user" type="hidden" value={session.user.name}/>
+          </div>
+          <div class="mt-10 grid"
+               data-astro-source-loc="72:31">
+            <Button variant="primary" type="submit" id="add" icon="tabler:plus">Add</Button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+
+  </MiddleDisplayLayout>
+</Layout>
+<script define:vars={{api}} is:inline>
+
+  window.submitReport = async (event) => {
+    event.preventDefault();
+    console.log('entered')
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    const api = '/admin/api/report/nutrition/add';
+    const response = await fetch(api, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.ok){
+     window.location.href = '/admin/reports/list/nutrition'; 
+    }
+  }
+
+</script>
+
