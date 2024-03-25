@@ -1,0 +1,30 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import MiddleDisplayLayout from '~/layouts/MiddleDisplayLayout.astro';
+import {getSession} from "auth-astro/server";
+import Button from "~/components/ui/Button.astro";
+
+const session = await getSession(Astro.request)
+if (!session) return Astro.redirect("/");
+
+const reportId = Astro.url.searchParams.get('id') || 0;
+const api = import.meta.env.API_PATH;
+// fetch report by id
+const data = await fetch(`${api}/report/nutrition/${reportId}`)
+const record = await data.json();
+const metadata = {
+  title: 'Nutrition Report Report Viewer',
+};
+---
+<Layout metadata={metadata}>
+  <MiddleDisplayLayout>
+    <h3 class="font-bold leading-tighter tracking-tighter font-heading text-heading text-3xl md:text-4xl">{record.name} Report</h3>
+    <span class="font-semibold  mt-2">Created By: {record.user}</span>
+    <div class="flex justify-end">
+      <Button icon="tabler:plus" variant="primary" link="/add" class="mt-4" href="/admin/reports/add/nutrition">Add Report</Button>
+    </div>
+    <div class="aspect-w-16 aspect-h-12 mt-5">
+      <iframe class="aspect-content" src="https://pgxresources.blob.core.windows.net/pgx-docs/nutrition-MG21405.pdf" type="application/pdf"></iframe>
+    </div>
+  </MiddleDisplayLayout>
+</Layout>
