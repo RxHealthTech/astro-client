@@ -1,6 +1,6 @@
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { defineConfig, squooshImageService } from 'astro/config';
+import {fileURLToPath} from 'url';
+import {defineConfig, squooshImageService} from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
@@ -8,11 +8,12 @@ import partytown from '@astrojs/partytown';
 import icon from 'astro-icon';
 import compress from 'astro-compress';
 import tasks from './src/utils/tasks';
-import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin } from './src/utils/frontmatter.mjs';
-import { ANALYTICS, SITE } from './src/utils/config.ts';
+import {readingTimeRemarkPlugin, responsiveTablesRehypePlugin} from './src/utils/frontmatter.mjs';
+import {ANALYTICS, SITE} from './src/utils/config.ts';
 import auth from "auth-astro";
 import node from "@astrojs/node";
 import netlify from "@astrojs/netlify";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const whenExternalScripts = (items = []) => ANALYTICS.vendors.googleAnalytics.id && ANALYTICS.vendors.googleAnalytics.partytown ? Array.isArray(items) ? items.map(item => item()) : [items()] : [];
 
@@ -45,7 +46,8 @@ export default defineConfig({
     JavaScript: true,
     SVG: false,
     Logger: 1
-  }), tasks(), auth()],
+  }), tasks()
+  ],
   image: {
     service: squooshImageService()
   },
